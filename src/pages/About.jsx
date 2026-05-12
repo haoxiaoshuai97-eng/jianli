@@ -1,0 +1,231 @@
+import { motion } from 'framer-motion';
+import './About.css';
+
+const About = () => {
+  const experiences = [
+    {
+      company: '字节跳动',
+      role: '抖音产品动效设计师',
+      period: '2022.06 - 至今',
+      description: '负责抖音各类大型活动创意动效设计。各类产品端内功能动态创意设计，通过丰富的动态风格演绎，情感化的动效表达，提升了抖音用户的产品体验。总结SPINE能力更好支持相关项目，完善自研SAR引擎内相关模块的交付标准制定。动态新技术探索、新工具共建。',
+      highlights: ['大型活动创意动效', '产品功能动态设计', 'SPINE技术应用', 'SAR引擎标准制定', '新技术探索'],
+    },
+    {
+      company: '智胜新格',
+      role: '游戏动效设计师',
+      period: '2021.12 - 2022.06',
+      description: '负责海外成熟游戏项目的图标动效、交互动效、活动页面动效制作。使用SPINE制作角色物品动画以及特效部分。熟练掌握UNITY粒子系统、AE粒子系统。熟悉各类SHADER的使用，熟练掌握ASE。熟悉工作流程，有策划前端深度配合经验。',
+      highlights: ['游戏图标动效', 'SPINE角色动画', 'Unity粒子系统', 'SHADER应用', '跨部门协作'],
+    },
+    {
+      company: '字节跳动大力教育',
+      role: '瓜瓜龙启蒙英语美术项目负责人 · 动画师',
+      period: '2020.01 - 2021.12',
+      description: '负责瓜瓜龙启蒙英语美术项目的动画制作、组内日常管理、整体质量提升工作。熟练掌握DUIK、MOTION2、PARTICULAR等插件，并配合PS、PR、AI的使用。精通角色动画、绑定、特效，项目流程清晰。包含三维建模、动效制作、后期包装、视频剪辑、真人抠像等工作。',
+      highlights: ['项目管理', '角色动画绑定', 'AE插件应用', '后期包装', '视频剪辑'],
+    },
+    {
+      company: '北京小盒科技有限公司',
+      role: '动画师',
+      period: '2018.08 - 2020.01',
+      description: '主要负责小象编程动画制作。负责参与香蕉学堂三维部分，主要利用MAYA制作三渲二场景、角色造型建模、三维角色动画、摄像机动画等。包含建模、UV、绑定、动画、渲染全流程。',
+      highlights: ['小象编程动画', '三渲二制作', 'Maya全流程', '角色建模绑定', '三维动画'],
+    },
+    {
+      company: '山西乐酷文化传媒',
+      role: '三维动画师（实习）',
+      period: '2017.06 - 2018.06',
+      description: '参与《小亲吃蛋之囧囧有神》项目制作，该项目为文化部重点动漫品牌保护计划项目。负责三维动画、绑定、建模等工作，学习完整的三维动画制作流程。',
+      highlights: ['文化部重点项目', '三维动画制作', '角色绑定', '建模'],
+    },
+  ];
+
+  const skills = [
+    { category: '动效工具', items: ['After Effects', 'Spine', 'Unity'] },
+    { category: '设计工具', items: ['Photoshop', 'SAI', 'Illustrator'] },
+    { category: '3D工具', items: ['Cinema 4D', 'Blender', 'Maya'] },
+    { category: 'AI工作流', items: ['Skill构建', '上下文工程', '设计脑暴协作'] },
+  ];
+
+  return (
+    <div className="about">
+      <motion.div
+        className="about-header"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h1 className="gradient-text">关于我</h1>
+        <p className="about-subtitle">郝晓帅 · 动画设计师</p>
+      </motion.div>
+
+      <div className="about-content">
+        {/* 个人简介 */}
+        <motion.div
+          className="bio-section glass"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="bio-avatar">
+            <img src="/avatar.jpg" alt="郝晓帅" className="avatar-image" />
+          </div>
+          <div className="bio-text">
+            <h2>个人简介</h2>
+            <p>
+              我是郝晓帅，动画设计师，毕业于山西传媒学院动画专业。
+              目前在字节跳动负责抖音直播产品的活动动效设计，有超过7年的动画动效设计经验。
+            </p>
+            <p>
+              我不只是在"做动效"，而是在理解业务之后做动效。
+              直播的本质是一个实时的社交场，动效的作用是强化社交临场感、触发付费动机、
+              让虚拟物品的价值可感知。这套思维框架让我的设计决策有据可依，而不只是凭感觉。
+            </p>
+            <p>
+              在AI工具应用上，我有自己的思考：AI的输出质量取决于上下文质量，
+              而维护上下文的成本由人来承担——这是使用AI的核心矛盾。
+              我通过构建可复用的Skill模块（预制上下文），解决了重复交代的问题，
+              让AI真正成为设计脑暴和业务分析的高效搭档。
+            </p>
+            <div className="contact-info">
+              <a href="mailto:934453059@qq.com" className="contact-link">
+                📧 934453059@qq.com
+              </a>
+              <a href="tel:18434370828" className="contact-link">
+                📱 18434370828
+              </a>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* 工作经历 */}
+        <motion.section
+          className="experience-section"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="section-title gradient-text">工作经历</h2>
+          <div className="timeline">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                className="timeline-item glass"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <div className="timeline-header">
+                  <div>
+                    <h3 className="company-name">{exp.company}</h3>
+                    <p className="role-name">{exp.role}</p>
+                  </div>
+                  <span className="period">{exp.period}</span>
+                </div>
+                <p className="exp-description">{exp.description}</p>
+                <div className="highlights">
+                  {exp.highlights.map((h) => (
+                    <span key={h} className="highlight-tag">{h}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* 技能矩阵 */}
+        <motion.section
+          className="skills-matrix"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="section-title gradient-text">技能矩阵</h2>
+          <div className="skills-categories">
+            {skills.map((category, index) => (
+              <motion.div
+                key={category.category}
+                className="skill-category glass"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="category-name">{category.category}</h3>
+                <div className="skill-items">
+                  {category.items.map((item) => (
+                    <span key={item} className="skill-item">{item}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* AI理解与方法论 */}
+        <motion.section
+          className="ai-section"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="section-title gradient-text">AI工作流理解</h2>
+          <div className="ai-content glass">
+            <h3>核心矛盾：上下文地狱</h3>
+            <p>
+              AI的输出质量 = f(上下文质量)，但维护上下文的成本由人类承担。
+              这是使用AI的核心痛点：重复交代、不可控性、上下文过载。
+            </p>
+
+            <h3>解决方案：Skill机制</h3>
+            <p>
+              Skill的本质是预制的上下文模块，在需要时自动切入。
+              我构建了两个核心Skill：
+            </p>
+            <ul>
+              <li><strong>设计脑暴Skill</strong> - 定义AI作为创意搭档的角色、脑暴节奏（对齐→发散→收敛）和沟通风格</li>
+              <li><strong>直播业务Skill</strong> - 封装直播业务的底层框架（社交场→停留→付费→价值感知），让AI理解业务本质</li>
+            </ul>
+
+            <h3>实践效果</h3>
+            <p>
+              通过Skill机制，我不需要每次都从头教AI"你是谁、业务是什么"，
+              而是直接进入高质量的设计讨论。这让AI从"搜索引擎"变成了真正的"协作伙伴"。
+            </p>
+          </div>
+        </motion.section>
+
+        {/* 教育背景 */}
+        <motion.section
+          className="education-section"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="section-title gradient-text">教育背景</h2>
+          <div className="education-card glass">
+            <div className="education-header">
+              <div>
+                <h3 className="school-name">山西传媒学院</h3>
+                <p className="major-name">动画专业（本科）</p>
+              </div>
+              <span className="period">2014.09 - 2018.07</span>
+            </div>
+            <p className="education-description">
+              系统学习动画制作流程、角色设计、分镜构图、视觉叙事等专业知识。
+              在校期间参与多个动画和漫画项目，为后续的动效设计工作打下坚实基础。
+            </p>
+          </div>
+        </motion.section>
+      </div>
+    </div>
+  );
+};
+
+export default About;
