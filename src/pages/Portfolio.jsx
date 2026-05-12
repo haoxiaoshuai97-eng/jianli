@@ -11,7 +11,7 @@ const Portfolio = () => {
       category: '抖音产品动效',
       media: {
         type: 'video',
-        url: '/projects/douyin-activity.mp4',
+        url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/douyin-activity.mp4',
       },
       tags: ['After Effects', 'Spine', '直播动效'],
     },
@@ -22,7 +22,7 @@ const Portfolio = () => {
       category: '产品功能动效',
       media: {
         type: 'video',
-        url: '/projects/douyin-function.mp4',
+        url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/douyin-function.mp4',
       },
       tags: ['Spine', 'SAR引擎', '标准制定'],
     },
@@ -33,7 +33,7 @@ const Portfolio = () => {
       category: '游戏动效',
       media: {
         type: 'video',
-        url: '/projects/game-motion.mp4',
+        url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/game-motion.mp4',
       },
       tags: ['Spine', 'Unity粒子', 'SHADER'],
     },
@@ -44,7 +44,7 @@ const Portfolio = () => {
       category: '教育动画',
       media: {
         type: 'video',
-        url: '/projects/guagualong.mp4',
+        url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/guagualong.mp4',
       },
       tags: ['AE', 'DUIK', 'PARTICULAR'],
     },
@@ -55,7 +55,7 @@ const Portfolio = () => {
       category: '教育动画',
       media: {
         type: 'video',
-        url: '/projects/xiaoxiang.mp4',
+        url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/Xiaoxiang.mp4',
       },
       tags: ['Maya', '三渲二', '角色动画'],
     },
@@ -66,7 +66,7 @@ const Portfolio = () => {
       category: '三维动画',
       media: {
         type: 'video',
-        url: '/projects/xiaoqin.mp4',
+        url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/xiaoqin.mp4',
       },
       tags: ['Maya', '三维动画', '角色绑定'],
     },
