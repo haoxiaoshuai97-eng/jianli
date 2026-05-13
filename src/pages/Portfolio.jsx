@@ -12,6 +12,7 @@ const Portfolio = () => {
       media: {
         type: 'video',
         url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/douyin-activity.mp4',
+        poster: '/projects/douyin-activity.png',
       },
       tags: ['After Effects', 'Spine', '直播动效'],
     },
@@ -23,6 +24,7 @@ const Portfolio = () => {
       media: {
         type: 'video',
         url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/douyin-function.mp4',
+        poster: '/projects/douyin-function.png',
       },
       tags: ['Spine', 'SAR引擎', '标准制定'],
     },
@@ -34,6 +36,7 @@ const Portfolio = () => {
       media: {
         type: 'video',
         url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/game-motion.mp4',
+        poster: '/projects/game-motion.png',
       },
       tags: ['Spine', 'Unity粒子', 'SHADER'],
     },
@@ -45,6 +48,7 @@ const Portfolio = () => {
       media: {
         type: 'video',
         url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/guagualong.mp4',
+        poster: '/projects/guagualong.png',
       },
       tags: ['AE', 'DUIK', 'PARTICULAR'],
     },
@@ -56,6 +60,7 @@ const Portfolio = () => {
       media: {
         type: 'video',
         url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/Xiaoxiang.mp4',
+        poster: '/projects/Xiaoxiang.png',
       },
       tags: ['Maya', '三渲二', '角色动画'],
     },
@@ -67,6 +72,7 @@ const Portfolio = () => {
       media: {
         type: 'video',
         url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/xiaoqin.mp4',
+        poster: '/projects/xiaoqin.png',
       },
       tags: ['Maya', '三维动画', '角色绑定'],
     },
@@ -105,7 +111,7 @@ const Portfolio = () => {
                   muted
                   playsInline
                   className="media-video"
-                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='white' stop-opacity='0.25'/%3E%3Cstop offset='100%25' stop-color='white' stop-opacity='0.08'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='black' width='400' height='300'/%3E%3Ccircle cx='200' cy='150' r='42' fill='url(%23g)' stroke='white' stroke-opacity='0.35' stroke-width='1.5'/%3E%3Ccircle cx='200' cy='150' r='42' fill='none' stroke='white' stroke-opacity='0.15' stroke-width='3' transform='translate(0 1)'/%3E%3Cpolygon points='192,132 192,168 222,150' fill='white' fill-opacity='0.95'/%3E%3C/svg%3E"
+                  poster={project.media.poster}
                 >
                   您的浏览器不支持视频播放
                 </video>
