@@ -100,10 +100,12 @@ const Portfolio = () => {
                 <video
                   src={project.media.url}
                   controls
+                  preload="none"
                   loop
                   muted
                   playsInline
                   className="media-video"
+                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23667eea' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='20' font-family='sans-serif'%3E点击播放%3C/text%3E%3C/svg%3E"
                 >
                   您的浏览器不支持视频播放
                 </video>
