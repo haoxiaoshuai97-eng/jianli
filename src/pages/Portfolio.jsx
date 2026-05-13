@@ -105,7 +105,7 @@ const Portfolio = () => {
                   muted
                   playsInline
                   className="media-video"
-                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23667eea' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='20' font-family='sans-serif'%3E点击播放%3C/text%3E%3C/svg%3E"
+                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='white' stop-opacity='0.25'/%3E%3Cstop offset='100%25' stop-color='white' stop-opacity='0.08'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='black' width='400' height='300'/%3E%3Ccircle cx='200' cy='150' r='42' fill='url(%23g)' stroke='white' stroke-opacity='0.35' stroke-width='1.5'/%3E%3Ccircle cx='200' cy='150' r='42' fill='none' stroke='white' stroke-opacity='0.15' stroke-width='3' transform='translate(0 1)'/%3E%3Cpolygon points='192,132 192,168 222,150' fill='white' fill-opacity='0.95'/%3E%3C/svg%3E"
                 >
                   您的浏览器不支持视频播放
                 </video>
