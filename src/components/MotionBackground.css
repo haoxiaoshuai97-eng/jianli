@@ -1,0 +1,181 @@
+.motion-bg {
+  position: absolute;
+  inset: 0;
+  min-height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(255, 110, 84, 0.07), transparent 28%),
+    radial-gradient(circle at 86% 22%, rgba(36, 209, 178, 0.08), transparent 24%),
+    linear-gradient(180deg, #08100d 0%, #0a1112 46%, #090b10 100%);
+}
+
+.bg-marquee {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: #07100d;
+  background: rgba(215, 255, 33, 0.72);
+  border-bottom: 1px solid rgba(7, 16, 13, 0.38);
+}
+
+.bg-marquee-track {
+  display: flex;
+  min-width: 200%;
+  align-items: center;
+  gap: 22px;
+  padding-left: 24px;
+  white-space: nowrap;
+  font-size: clamp(0.82rem, 1.4vw, 1.02rem);
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+.bg-marquee-track b {
+  font-size: 1.18rem;
+  line-height: 1;
+}
+
+.bg-field {
+  position: absolute;
+  inset: 44px 0 0;
+  min-height: calc(100% - 44px);
+  opacity: 0.46;
+  mask-image:
+    radial-gradient(circle at 50% 34%, transparent 0 28%, black 48%),
+    linear-gradient(to bottom, transparent 0, black 14%, black 100%);
+}
+
+.bg-stem {
+  position: absolute;
+  width: 1px;
+  background: transparent;
+  will-change: transform, opacity;
+}
+
+.bg-stem-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  transform-origin: bottom center;
+  background: rgba(215, 255, 33, 0.2);
+  will-change: transform, opacity;
+}
+
+.bg-stem-dot {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  min-height: 6px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: rgba(215, 255, 33, 0.84);
+  will-change: transform, opacity;
+}
+
+.bg-stem:nth-child(3n) .bg-stem-dot {
+  background: #24d1b2;
+}
+
+.bg-stem:nth-child(4n) .bg-stem-line {
+  background: rgba(255, 110, 84, 0.28);
+}
+
+.bg-stem:nth-child(5n) .bg-stem-line {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.bg-doodle {
+  position: absolute;
+  display: block;
+  opacity: 0.44;
+  will-change: transform;
+}
+
+.bg-shape {
+  display: block;
+  transform-origin: center;
+}
+
+.bg-dash {
+  width: 42px;
+  height: 8px;
+  border-radius: 999px;
+  background: #fff4c8;
+  transform: rotate(-48deg);
+}
+
+.bg-dot {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px;
+  min-height: 24px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #d8c8ff 0 18%, #8b7cf6 42%, #5538ee 100%);
+  transform: none !important;
+}
+
+.bg-doodle-dot {
+  width: 24px;
+  height: 24px;
+}
+
+.bg-pill {
+  width: 38px;
+  height: 18px;
+  border-radius: 999px;
+  background: #24d1b2;
+  transform: rotate(-22deg);
+}
+
+.bg-star {
+  width: 34px;
+  height: 34px;
+  background: #ff5fd2;
+  clip-path: polygon(50% 0, 61% 34%, 96% 16%, 78% 50%, 100% 80%, 63% 69%, 50% 100%, 37% 69%, 0 80%, 22% 50%, 4% 16%, 39% 34%);
+}
+
+@media (max-width: 720px) {
+  .bg-marquee {
+    height: 30px;
+  }
+
+  .bg-marquee-track {
+    gap: 18px;
+    font-size: 0.95rem;
+  }
+
+  .bg-field {
+    inset: 30px 0 0;
+    min-height: calc(100% - 30px);
+    opacity: 0.32;
+  }
+
+  .bg-stem:nth-child(n + 23),
+  .bg-doodle:nth-of-type(n + 12) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-marquee-track,
+  .bg-stem,
+  .bg-doodle {
+    animation: none;
+  }
+}

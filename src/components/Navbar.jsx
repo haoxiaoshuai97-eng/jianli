@@ -1,9 +1,10 @@
+import { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
+  const navLinksRef = useRef(null);
 
   const navItems = [
     { path: '/', label: '首页' },
@@ -12,37 +13,45 @@ const Navbar = () => {
   ];
 
   return (
-    <motion.nav
-      className="navbar"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="logo gradient-text">
           动效设计师
         </Link>
 
-        <div className="nav-links glass">
+        <div
+          className="nav-links border-glow"
+          ref={navLinksRef}
+          onPointerMove={(event) => {
+            const nav = navLinksRef.current;
+            if (!nav) return;
+
+            const rect = nav.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            nav.style.setProperty('--border-x', `${x}px`);
+            nav.style.setProperty('--border-y', `${y}px`);
+            nav.style.setProperty('--border-opacity', '1');
+          }}
+          onPointerLeave={() => {
+            navLinksRef.current?.style.setProperty('--border-opacity', '0');
+          }}
+        >
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
               className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
             >
-              {item.label}
+              <span className="magnetic-label">{item.label}</span>
               {location.pathname === item.path && (
-                <motion.div
-                  className="nav-indicator"
-                  layoutId="nav-indicator"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
+                <span className="nav-indicator" />
               )}
             </Link>
           ))}
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 };
 

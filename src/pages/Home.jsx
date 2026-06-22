@@ -1,111 +1,137 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import GlassSurface from '../components/GlassSurface';
 import './Home.css';
 
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const proofPoints = [
+  { label: '8年+', value: '教育动画 / 游戏动效 / 产品动效' },
+  { label: '抖音', value: '直播活动与核心交互链路动效' },
+  { label: 'AI Skill', value: '把工作流经验沉淀成可复用协作模块' },
+];
+
+const timeline = [
+  { year: '现在', title: '抖音产品动效', text: '服务直播活动、端内功能与营收链路，让动效承载反馈、情绪和业务判断。' },
+  { year: '之前', title: '游戏与教育动画', text: '从 Spine、Unity、Maya 到 AE 后期，积累角色、特效、交互和项目流程经验。' },
+  { year: '方法', title: 'AI 工作流', text: '用 Skill、自动化脚本和上下文工程，把重复劳动交给系统，把时间留给创意。' },
+];
+
+const tools = ['After Effects', 'Spine', 'Unity', 'Lottie', 'Maya', 'Blender', 'Photoshop', 'AI工作流'];
+
 const Home = () => {
+  const root = useRef(null);
+
+  useGSAP(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      gsap.set('.home-reveal, .proof-item, .timeline-row, .tool-chip', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+      return;
+    }
+
+    const intro = gsap.timeline({ defaults: { duration: 0.72, ease: 'power3.out' } });
+    intro
+      .from('.home-kicker', { autoAlpha: 0, y: 18 })
+      .from('.home-title', { autoAlpha: 0, y: 34 }, '<0.06')
+      .from('.home-summary', { autoAlpha: 0, y: 22 }, '<0.1')
+      .from('.home-actions', { autoAlpha: 0, y: 18 }, '<0.12')
+      .from('.portrait-card', { autoAlpha: 0, x: 34, scale: 0.97 }, '<0.02')
+      .from('.proof-item', { autoAlpha: 0, y: 18, stagger: 0.06 }, '<0.12');
+
+    gsap.to('.portrait-card img', {
+      y: -10,
+      duration: 3,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true,
+    });
+
+    ScrollTrigger.batch('.timeline-row, .tool-chip', {
+      start: 'top 82%',
+      onEnter: (batch) => gsap.to(batch, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.58,
+        stagger: 0.05,
+        ease: 'power2.out',
+        overwrite: true,
+      }),
+      onLeaveBack: (batch) => gsap.set(batch, { autoAlpha: 0, y: 22, overwrite: true }),
+    });
+  }, { scope: root });
+
   return (
-    <div className="home">
-      {/* 装饰性渐变球 - 固定在视口，滚动时始终可见 */}
-      <div className="gradient-orb orb-1"></div>
-      <div className="gradient-orb orb-2"></div>
-
-      <div className="hero-section">
-        <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h1
-            className="hero-title"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            你好，我是
-            <span className="gradient-text"> 郝晓帅</span>
-          </motion.h1>
-
-          <motion.p
-            className="hero-subtitle"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            动画设计师 · 抖音产品动效设计师
-          </motion.p>
-
-          <motion.p
-            className="hero-description"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
-            负责抖音各类大型活动创意动效设计
-            <br />
-            通过丰富的动态风格演绎和情感化的动效表达，提升产品体验
-            <br />
-            精通SPINE、Unity、AE等动效工具，探索AI在设计工作流中的应用
-          </motion.p>
-
-          <motion.div
-            className="hero-buttons"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
-            <Link to="/portfolio" className="btn-primary glass">
-              查看作品
+    <main className="home" ref={root}>
+      <section className="home-hero" aria-label="首页介绍">
+        <div className="home-main">
+          <p className="home-kicker home-reveal">Motion Designer / Douyin Product Motion</p>
+          <h1 className="home-title home-reveal">
+            郝晓帅
+            <span>把产品逻辑做成有节奏、有情绪、可交付的动态体验。</span>
+          </h1>
+          <p className="home-summary home-reveal">
+            我是动画设计师，现负责抖音直播活动与端内功能动效。我的优势不是单纯“做一个动画”，而是先理解业务目标，再用动效强化社交临场感、价值感知和用户反馈。
+          </p>
+          <div className="home-actions home-reveal">
+            <Link to="/portfolio" className="btn-primary">
+              <GlassSurface className="glass-button-surface" borderRadius={999} distortionScale={-165} backgroundOpacity={0.045}>
+                <span className="magnetic-label">看作品</span>
+              </GlassSurface>
             </Link>
-            <Link to="/about" className="btn-secondary glass">
-              联系我
+            <Link to="/about" className="btn-secondary">
+              <GlassSurface className="glass-button-surface" borderRadius={999} distortionScale={-150} backgroundOpacity={0.035}>
+                <span className="magnetic-label">看完整简历</span>
+              </GlassSurface>
             </Link>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
-        {/* 装饰性渐变球 */}
-        <div className="gradient-orb orb-1"></div>
-        <div className="gradient-orb orb-2"></div>
-        <div className="gradient-orb orb-3"></div>
-      </div>
+        <aside className="home-side" aria-label="关键信息">
+          <div className="portrait-card glass">
+            <img src="/avatar.jpg" alt="郝晓帅头像" />
+            <div>
+              <strong>从角色动画到产品动效</strong>
+              <span>AE / Spine / Unity / Lottie / AI Skill</span>
+            </div>
+          </div>
+          <div className="proof-list">
+            {proofPoints.map((item) => (
+              <div className="proof-item glass" key={item.label}>
+                <strong>{item.label}</strong>
+                <span>{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </section>
 
-      {/* 技能展示区域 */}
-      <motion.section
-        className="skills-section"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="section-title gradient-text">核心技能</h2>
-        <div className="skills-grid">
-          {[
-            { name: 'After Effects', level: '精通' },
-            { name: 'Photoshop', level: '精通' },
-            { name: 'Spine', level: '熟练' },
-            { name: 'Unity', level: '熟练' },
-            { name: 'Cinema 4D', level: '熟练' },
-            { name: 'Blender', level: '熟练' },
-            { name: 'Maya', level: '熟练' },
-            { name: 'SAI', level: '熟练' },
-            { name: 'AI工作流', level: '深度理解' },
-          ].map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              className="skill-card glass"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05, duration: 0.4, ease: 'easeOut' }}
-              viewport={{ once: true, margin: '-50px' }}
-              whileHover={{ y: -5 }}
-            >
-              <h3>{skill.name}</h3>
-              <p className="skill-level">{skill.level}</p>
-            </motion.div>
+      <section className="home-focus" aria-label="动效路径与工具">
+        <div className="focus-heading">
+          <span>Path</span>
+          <h2>一条更清楚的动效路径</h2>
+        </div>
+        <div className="timeline-compact">
+          {timeline.map((item) => (
+            <article className="timeline-row" key={item.title}>
+              <span>{item.year}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
           ))}
         </div>
-      </motion.section>
-    </div>
+        <div className="tool-strip" aria-label="核心工具">
+          {tools.map((tool) => (
+            <span className="tool-chip" key={tool}>{tool}</span>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 };
 

@@ -2,6 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
+import CursorTrail from './components/CursorTrail';
+import MotionBackground from './components/MotionBackground';
+import MagneticButtons from './components/MagneticButtons';
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';
 import About from './pages/About';
@@ -60,6 +63,9 @@ function App() {
   return (
     <Router>
       <div className="app">
+        <MotionBackground />
+        <CursorTrail />
+        <MagneticButtons />
         <Navbar />
         <AnimatePresence mode="wait">
           <Routes>
