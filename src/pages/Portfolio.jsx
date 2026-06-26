@@ -87,6 +87,19 @@ const projects = [
     },
     tags: ['Maya', '三维动画', '角色绑定'],
   },
+  {
+    id: 7,
+    title: 'Vibe Coding 麦位动效插件',
+    description: '独立借助 Codex 完成 Figma 麦位声波动效插件，将高频、强规范的麦位动效需求沉淀为可预览、可批量生成、可直出 WebP 的生产工具。',
+    category: '动效工具化',
+    decision: '把重复动效生产拆成视觉预设、参数规则、预览 demo 与导出链路，让日常麦位需求从单次制作转为稳定可复用的工具流程。',
+    deliverables: ['Figma插件', '参数预设', '预览Demo', 'WebP导出'],
+    media: {
+      url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/mic-wave-plugin-vibecodin.mp4',
+      poster: '/projects/mic-wave-plugin-vibecoding.png',
+    },
+    tags: ['Vibe Coding', 'Figma插件', 'Codex', 'WebP导出'],
+  },
 ];
 
 const Portfolio = () => {
