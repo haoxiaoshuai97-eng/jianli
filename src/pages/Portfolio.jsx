@@ -24,6 +24,19 @@ const projects = [
   },
   {
     id: 2,
+    title: 'Vibe Coding 麦位动效插件',
+    description: '独立借助 Codex 完成 Figma 麦位声波动效插件，将高频、强规范的麦位动效需求沉淀为可预览、可批量生成、可直出 WebP 的生产工具。',
+    category: '动效工具化',
+    decision: '把重复动效生产拆成视觉预设、参数规则、预览 demo 与导出链路，让日常麦位需求从单次制作转为稳定可复用的工具流程。',
+    deliverables: ['Figma插件', '参数预设', '预览Demo', 'WebP导出'],
+    media: {
+      url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/mic-wave-plugin-vibecodin.mp4',
+      poster: '/projects/mic-wave-plugin-vibecoding.png',
+    },
+    tags: ['Vibe Coding', 'Figma插件', 'Codex', 'WebP导出'],
+  },
+  {
+    id: 3,
     title: '抖音产品端内功能动态设计',
     description: '负责各类产品端内功能动态创意设计，并完善自研 SAR 引擎相关模块的交付标准。',
     category: '产品功能动效',
@@ -36,7 +49,7 @@ const projects = [
     tags: ['Spine', 'SAR引擎', '标准制定'],
   },
   {
-    id: 3,
+    id: 4,
     title: '海外游戏项目动效',
     description: '负责海外成熟游戏项目图标动效、交互动效、活动页面动效制作，使用 Spine 制作角色物品动画及特效。',
     category: '游戏动效',
@@ -49,7 +62,7 @@ const projects = [
     tags: ['Spine', 'Unity粒子', 'SHADER'],
   },
   {
-    id: 4,
+    id: 5,
     title: '瓜瓜龙启蒙英语动画',
     description: '负责瓜瓜龙启蒙英语美术项目动画制作，精通角色动画、绑定、特效，覆盖动效制作与后期包装。',
     category: '教育动画',
@@ -62,7 +75,7 @@ const projects = [
     tags: ['AE', 'DUIK', 'PARTICULAR'],
   },
   {
-    id: 5,
+    id: 6,
     title: '小象编程动画',
     description: '负责小象编程动画制作，参与香蕉学堂三维部分，利用 Maya 制作三渲二场景、角色造型建模与三维角色动画。',
     category: '教育动画',
@@ -75,7 +88,7 @@ const projects = [
     tags: ['Maya', '三渲二', '角色动画'],
   },
   {
-    id: 6,
+    id: 7,
     title: '《小亲圪蛋之囧囧有神》',
     description: '文化部重点动漫品牌保护计划项目，负责 layout、三维动画、角色绑定、建模等工作。',
     category: '三维动画',
@@ -86,19 +99,6 @@ const projects = [
       poster: '/projects/xiaoqin.png',
     },
     tags: ['Maya', '三维动画', '角色绑定'],
-  },
-  {
-    id: 7,
-    title: 'Vibe Coding 麦位动效插件',
-    description: '独立借助 Codex 完成 Figma 麦位声波动效插件，将高频、强规范的麦位动效需求沉淀为可预览、可批量生成、可直出 WebP 的生产工具。',
-    category: '动效工具化',
-    decision: '把重复动效生产拆成视觉预设、参数规则、预览 demo 与导出链路，让日常麦位需求从单次制作转为稳定可复用的工具流程。',
-    deliverables: ['Figma插件', '参数预设', '预览Demo', 'WebP导出'],
-    media: {
-      url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/mic-wave-plugin-vibecodin.mp4',
-      poster: '/projects/mic-wave-plugin-vibecoding.png',
-    },
-    tags: ['Vibe Coding', 'Figma插件', 'Codex', 'WebP导出'],
   },
 ];
 

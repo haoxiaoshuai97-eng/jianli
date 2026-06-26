@@ -1,10 +1,22 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
   const navLinksRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateScrolled = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+
+    updateScrolled();
+    window.addEventListener('scroll', updateScrolled, { passive: true });
+
+    return () => window.removeEventListener('scroll', updateScrolled);
+  }, []);
 
   const navItems = [
     { path: '/', label: '首页' },
@@ -13,7 +25,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="nav-container">
         <Link to="/" className="logo gradient-text">
           动效设计师

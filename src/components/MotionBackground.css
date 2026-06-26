@@ -11,42 +11,11 @@
     linear-gradient(180deg, #08100d 0%, #0a1112 46%, #090b10 100%);
 }
 
-.bg-marquee {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  color: #07100d;
-  background: rgba(215, 255, 33, 0.72);
-  border-bottom: 1px solid rgba(7, 16, 13, 0.38);
-}
-
-.bg-marquee-track {
-  display: flex;
-  min-width: 200%;
-  align-items: center;
-  gap: 22px;
-  padding-left: 24px;
-  white-space: nowrap;
-  font-size: clamp(0.82rem, 1.4vw, 1.02rem);
-  font-weight: 950;
-  letter-spacing: 0;
-}
-
-.bg-marquee-track b {
-  font-size: 1.18rem;
-  line-height: 1;
-}
-
 .bg-field {
   position: absolute;
-  inset: 44px 0 0;
-  min-height: calc(100% - 44px);
-  opacity: 0.46;
+  inset: 0;
+  min-height: 100%;
+  opacity: 0.34;
   mask-image:
     radial-gradient(circle at 50% 34%, transparent 0 28%, black 48%),
     linear-gradient(to bottom, transparent 0, black 14%, black 100%);
@@ -151,19 +120,10 @@
 }
 
 @media (max-width: 720px) {
-  .bg-marquee {
-    height: 30px;
-  }
-
-  .bg-marquee-track {
-    gap: 18px;
-    font-size: 0.95rem;
-  }
-
   .bg-field {
-    inset: 30px 0 0;
-    min-height: calc(100% - 30px);
-    opacity: 0.32;
+    inset: 0;
+    min-height: 100%;
+    opacity: 0.28;
   }
 
   .bg-stem:nth-child(n + 23),
@@ -173,7 +133,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-marquee-track,
   .bg-stem,
   .bg-doodle {
     animation: none;

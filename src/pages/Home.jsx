@@ -1,57 +1,95 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import GlassSurface from '../components/GlassSurface';
 import './Home.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const proofPoints = [
-  { label: '8年+', value: '教育动画 / 游戏动效 / 产品动效' },
-  { label: '抖音', value: '直播活动与核心交互链路动效' },
-  { label: 'AI Skill', value: '把工作流经验沉淀成可复用协作模块' },
+const capabilityCards = [
+  {
+    title: '产品动效',
+    text: '在抖音 UG、直播活动与端内功能中长期处理交互反馈、活动激励、权益表达和价效感知，将动效转化为可交付、可复用、可被研发稳定还原的产品资产。',
+  },
+  {
+    title: '动效工具化',
+    text: '用 Vibe Coding 做插件、网页工具和生产脚本，探索动效创作与交付的更多可能。',
+  },
+  {
+    title: '游戏动效',
+    text: '熟悉 Spine、Unity 粒子与 Shader 协作方式，处理角色、图标、UI 与活动动效。',
+  },
+  {
+    title: '角色动画',
+    text: '从教育动画和三维动画训练中积累动作、剪影、节奏与表演判断。',
+  },
 ];
 
-const timeline = [
-  { year: '现在', title: '抖音产品动效', text: '服务直播活动、端内功能与营收链路，让动效承载反馈、情绪和业务判断。' },
-  { year: '之前', title: '游戏与教育动画', text: '从 Spine、Unity、Maya 到 AE 后期，积累角色、特效、交互和项目流程经验。' },
-  { year: '方法', title: 'AI 工作流', text: '用 Skill、自动化脚本和上下文工程，把重复劳动交给系统，把时间留给创意。' },
-];
-
-const tools = ['After Effects', 'Spine', 'Unity', 'Lottie', 'Maya', 'Blender', 'Photoshop', 'AI工作流'];
+const tools = ['After Effects', 'Spine', 'Unity', 'Lottie', 'Maya', 'Cinema 4D', 'Blender', 'Figma Plugin'];
 
 const Home = () => {
   const root = useRef(null);
+  const portraitRef = useRef(null);
+  const tiltRef = useRef(null);
+  const [profileFlipped, setProfileFlipped] = useState(false);
 
-  useGSAP(() => {
+  const { contextSafe } = useGSAP(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reduceMotion) {
-      gsap.set('.home-reveal, .proof-item, .timeline-row, .tool-chip', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+      gsap.set('.home-reveal, .capability-card, .tool-chip', {
+        autoAlpha: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
+      });
       return;
     }
 
-    const intro = gsap.timeline({ defaults: { duration: 0.72, ease: 'power3.out' } });
+    const intro = gsap.timeline({ defaults: { duration: 0.76, ease: 'power3.out' } });
     intro
-      .from('.home-kicker', { autoAlpha: 0, y: 18 })
-      .from('.home-title', { autoAlpha: 0, y: 34 }, '<0.06')
-      .from('.home-summary', { autoAlpha: 0, y: 22 }, '<0.1')
-      .from('.home-actions', { autoAlpha: 0, y: 18 }, '<0.12')
-      .from('.portrait-card', { autoAlpha: 0, x: 34, scale: 0.97 }, '<0.02')
-      .from('.proof-item', { autoAlpha: 0, y: 18, stagger: 0.06 }, '<0.12');
+      .from('.portrait-wrap', { autoAlpha: 0, y: 30, scale: 0.96 })
+      .from('.home-kicker', { autoAlpha: 0, y: 18 }, '<0.1')
+      .from('.home-title', { autoAlpha: 0, y: 38 }, '<0.08')
+      .from('.home-summary', { autoAlpha: 0, y: 22 }, '<0.08')
+      .from('.home-actions', { autoAlpha: 0, y: 18 }, '<0.08')
+      .from('.hero-proof span', { autoAlpha: 0, y: 14, stagger: 0.05 }, '<0.08');
 
-    gsap.to('.portrait-card img', {
-      y: -10,
-      duration: 3,
+    gsap.to('.aurora-band', {
+      xPercent: (index) => (index % 2 === 0 ? 28 : -24),
+      yPercent: (index) => (index % 2 === 0 ? -16 : 18),
+      rotation: (index) => (index % 2 === 0 ? 14 : -16),
+      scale: 1.22,
+      duration: 7,
       ease: 'sine.inOut',
       repeat: -1,
       yoyo: true,
+      stagger: 0.5,
     });
 
-    ScrollTrigger.batch('.timeline-row, .tool-chip', {
-      start: 'top 82%',
+    gsap.to('.portrait-halo', {
+      rotation: 360,
+      duration: 18,
+      ease: 'none',
+      repeat: -1,
+    });
+
+    if (portraitRef.current) {
+      gsap.set(portraitRef.current, {
+        transformPerspective: 900,
+        transformStyle: 'preserve-3d',
+        transformOrigin: 'center center',
+      });
+      tiltRef.current = {
+        rotateX: gsap.quickTo(portraitRef.current, 'rotationX', { duration: 0.28, ease: 'power3.out' }),
+        rotateY: gsap.quickTo(portraitRef.current, 'rotationY', { duration: 0.28, ease: 'power3.out' }),
+        scale: gsap.quickTo(portraitRef.current, 'scale', { duration: 0.28, ease: 'power3.out' }),
+      };
+    }
+
+    ScrollTrigger.batch('.capability-card, .tool-chip', {
+      start: 'top 84%',
       onEnter: (batch) => gsap.to(batch, {
         autoAlpha: 1,
         y: 0,
@@ -60,68 +98,100 @@ const Home = () => {
         ease: 'power2.out',
         overwrite: true,
       }),
-      onLeaveBack: (batch) => gsap.set(batch, { autoAlpha: 0, y: 22, overwrite: true }),
+      onLeaveBack: (batch) => gsap.set(batch, { autoAlpha: 0, y: 24, overwrite: true }),
     });
   }, { scope: root });
 
+  const handlePortraitMove = contextSafe((event) => {
+    if (!portraitRef.current || profileFlipped) return;
+    const rect = portraitRef.current.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    tiltRef.current?.rotateY(x * 24);
+    tiltRef.current?.rotateX(-y * 18);
+    tiltRef.current?.scale(1.025);
+    portraitRef.current.style.setProperty('--shine-x', `${(x + 0.5) * 100}%`);
+    portraitRef.current.style.setProperty('--shine-y', `${(y + 0.5) * 100}%`);
+  });
+
+  const handlePortraitLeave = contextSafe(() => {
+    if (!portraitRef.current || profileFlipped) return;
+    tiltRef.current?.rotateX(0);
+    tiltRef.current?.rotateY(0);
+    tiltRef.current?.scale(1);
+  });
+
   return (
     <main className="home" ref={root}>
+      <div className="aurora-field" aria-hidden="true">
+        <span className="aurora-band band-a" />
+        <span className="aurora-band band-b" />
+        <span className="aurora-band band-c" />
+      </div>
+
       <section className="home-hero" aria-label="首页介绍">
+        <div className="home-left">
+          <button
+            className={`portrait-wrap${profileFlipped ? ' is-flipped' : ''}`}
+            type="button"
+            ref={portraitRef}
+            aria-label="点击切换头像和微信二维码"
+            onClick={() => setProfileFlipped((value) => !value)}
+            onMouseMove={handlePortraitMove}
+            onMouseLeave={handlePortraitLeave}
+          >
+            <span className="portrait-halo" aria-hidden="true" />
+            <span className="portrait-face portrait-front">
+              <img src="/avatar.jpg" alt="郝晓帅头像" />
+            </span>
+            <span className="portrait-face portrait-back">
+              <img src="/wechat-qr.png" alt="微信二维码" />
+            </span>
+            <span className="flip-hint">点击翻转</span>
+          </button>
+          <p className="profile-note">
+            8年+ 动效设计经验，经历覆盖教育动画、游戏项目、直播与产品动效。
+          </p>
+        </div>
+
         <div className="home-main">
-          <p className="home-kicker home-reveal">Motion Designer / Douyin Product Motion</p>
+          <p className="home-kicker home-reveal">Motion Designer / Game Motion / Product Motion</p>
           <h1 className="home-title home-reveal">
             郝晓帅
-            <span>把产品逻辑做成有节奏、有情绪、可交付的动态体验。</span>
+            <span>从角色动画、游戏动效到产品动效的复合型动效设计师</span>
           </h1>
           <p className="home-summary home-reveal">
-            我是动画设计师，现负责抖音直播活动与端内功能动效。我的优势不是单纯“做一个动画”，而是先理解业务目标，再用动效强化社交临场感、价值感知和用户反馈。
+            <span>熟悉 AE、Spine、Unity、Maya、C4D、Blender、Lottie 工作流。</span>
+            <span>Vibe Coding 做插件、网页工具和生产脚本，探索动效创作与交付的更多可能。</span>
           </p>
+          <div className="hero-proof" aria-label="核心能力">
+            <span>产品动效</span>
+            <span>动效工具化</span>
+            <span>游戏动效</span>
+            <span>角色动画</span>
+          </div>
           <div className="home-actions home-reveal">
             <Link to="/portfolio" className="btn-primary">
-              <GlassSurface className="glass-button-surface" borderRadius={999} distortionScale={-165} backgroundOpacity={0.045}>
-                <span className="magnetic-label">看作品</span>
-              </GlassSurface>
+              <span className="magnetic-label">看作品</span>
             </Link>
             <Link to="/about" className="btn-secondary">
-              <GlassSurface className="glass-button-surface" borderRadius={999} distortionScale={-150} backgroundOpacity={0.035}>
-                <span className="magnetic-label">看完整简历</span>
-              </GlassSurface>
+              <span className="magnetic-label">看完整简历</span>
             </Link>
           </div>
         </div>
 
-        <aside className="home-side" aria-label="关键信息">
-          <div className="portrait-card glass">
-            <img src="/avatar.jpg" alt="郝晓帅头像" />
-            <div>
-              <strong>从角色动画到产品动效</strong>
-              <span>AE / Spine / Unity / Lottie / AI Skill</span>
-            </div>
-          </div>
-          <div className="proof-list">
-            {proofPoints.map((item) => (
-              <div className="proof-item glass" key={item.label}>
-                <strong>{item.label}</strong>
-                <span>{item.value}</span>
-              </div>
-            ))}
-          </div>
-        </aside>
       </section>
 
-      <section className="home-focus" aria-label="动效路径与工具">
+      <section className="home-focus" aria-label="能力路径">
         <div className="focus-heading">
-          <span>Path</span>
-          <h2>一条更清楚的动效路径</h2>
+          <span>Capability</span>
+          <h2>不同媒介里解决动态问题</h2>
         </div>
-        <div className="timeline-compact">
-          {timeline.map((item) => (
-            <article className="timeline-row" key={item.title}>
-              <span>{item.year}</span>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
+        <div className="capability-grid">
+          {capabilityCards.map((item) => (
+            <article className="capability-card glass" key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
             </article>
           ))}
         </div>

@@ -79,37 +79,10 @@ const MotionBackground = () => {
       stagger: { each: 0.12, from: 'random' },
     });
 
-    gsap.to('.bg-marquee-track', {
-      xPercent: -50,
-      duration: 18,
-      ease: 'none',
-      repeat: -1,
-    });
   }, { scope: root });
 
   return (
     <div className="motion-bg" ref={root} aria-hidden="true">
-      <div className="bg-marquee">
-        <div className="bg-marquee-track">
-          <span>AI WORKFLOW</span>
-          <b>*</b>
-          <span>MOTION DESIGN</span>
-          <b>*</b>
-          <span>LOTTIE SYSTEMS</span>
-          <b>*</b>
-          <span>DOUYIN LIVE</span>
-          <b>*</b>
-          <span>AI WORKFLOW</span>
-          <b>*</b>
-          <span>MOTION DESIGN</span>
-          <b>*</b>
-          <span>LOTTIE SYSTEMS</span>
-          <b>*</b>
-          <span>DOUYIN LIVE</span>
-          <b>*</b>
-        </div>
-      </div>
-
       <div className="bg-field">
         {stems.map((stem) => (
           <span

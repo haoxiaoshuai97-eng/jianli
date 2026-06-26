@@ -45,11 +45,33 @@ const experiences = [
   },
 ];
 
-const skills = [
-  { category: '动效工具', items: ['After Effects', 'Spine', 'Unity', 'Lottie'] },
-  { category: '设计工具', items: ['Photoshop', 'SAI', 'Illustrator'] },
-  { category: '3D工具', items: ['Cinema 4D', 'Blender', 'Maya'] },
-  { category: 'AI工作流', items: ['Skill构建', '上下文工程', '设计脑暴协作', '自动化脚本'] },
+const skillTrees = [
+  {
+    id: 'traditional',
+    eyebrow: 'TRADITIONAL_LOADER',
+    title: '传统艺能',
+    accent: 'blue',
+    branches: [
+      { tag: 'animation', label: '动画全流程', tools: ['After Effects', 'Spine', 'Unity', 'Lottie'] },
+      { tag: 'video', label: '视频制作与剪辑', tools: ['Premiere', '剪映', 'Audition'] },
+      { tag: 'design', label: '创意资源设计', tools: ['Photoshop', 'Illustrator', 'SAI'] },
+      { tag: '3d', label: '3D素材与动画', tools: ['Cinema 4D', 'Blender', 'Maya'] },
+      { tag: 'template', label: '创意模板沉淀', tools: ['动效组件库', '视觉规范', '交付资产'] },
+    ],
+  },
+  {
+    id: 'ai',
+    eyebrow: 'PROMPT_ENGINE',
+    title: 'AI技术应用',
+    accent: 'green',
+    branches: [
+      { tag: 'context', label: '上下文工程', tools: ['需求拆解', '项目SOP', '判断标准'] },
+      { tag: 'prompt', label: '提示词工程', tools: ['结构化提示词', '方案验证', '素材处理'] },
+      { tag: 'vibe', label: 'Vibe coding', tools: ['网页制作', 'Figma插件', '自动化脚本'] },
+      { tag: 'agent', label: 'Agent / Skills', tools: ['Skill构建', '系统级提示词', '个人工作流'] },
+      { tag: 'prototype', label: '提效工具制作', tools: ['批量导出', '预览Demo', '设计脑暴协作'] },
+    ],
+  },
 ];
 
 const personalInfo = [
@@ -133,7 +155,7 @@ const About = () => {
       },
     });
 
-    ScrollTrigger.batch('.timeline-item, .skill-category, .ai-content, .education-card', {
+    ScrollTrigger.batch('.timeline-item, .ai-content', {
       start: 'top 82%',
       onEnter: (batch) => gsap.to(batch, {
         autoAlpha: 1,
@@ -144,6 +166,76 @@ const About = () => {
         overwrite: true,
       }),
       onLeaveBack: (batch) => gsap.set(batch, { autoAlpha: 0, y: 28, overwrite: true }),
+    });
+
+    const linePaths = gsap.utils.toArray('.skill-link-path');
+    linePaths.forEach((path) => {
+      const length = path.getTotalLength();
+      gsap.set(path, {
+        strokeDasharray: length,
+        strokeDashoffset: length,
+      });
+    });
+
+    const skillTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.skill-tree-board',
+        start: 'top 76%',
+        toggleActions: 'play none none reverse',
+      },
+    });
+
+    skillTimeline
+      .fromTo('.skill-tree-card', {
+        autoAlpha: 0,
+        y: 34,
+        scale: 0.98,
+      }, {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.72,
+        stagger: 0.1,
+        ease: 'power3.out',
+      })
+      .to('.skill-link-path', {
+        strokeDashoffset: 0,
+        duration: 1.05,
+        stagger: 0.045,
+        ease: 'power2.inOut',
+      }, '-=0.34')
+      .fromTo('.skill-tree-node', {
+        autoAlpha: 0,
+        x: -16,
+      }, {
+        autoAlpha: 1,
+        x: 0,
+        duration: 0.44,
+        stagger: 0.045,
+        ease: 'power2.out',
+      }, '-=0.74')
+      .fromTo('.skill-tool-chip', {
+        autoAlpha: 0,
+        y: 10,
+      }, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.36,
+        stagger: 0.018,
+        ease: 'power2.out',
+      }, '-=0.42');
+
+    gsap.to('.skill-link-flow', {
+      strokeDashoffset: -120,
+      duration: 2.8,
+      ease: 'none',
+      repeat: -1,
+      scrollTrigger: {
+        trigger: '.skill-tree-board',
+        start: 'top bottom',
+        end: 'bottom top',
+        toggleActions: 'play pause resume pause',
+      },
     });
   }, { scope: root });
 
@@ -212,13 +304,53 @@ const About = () => {
 
         <section className="skills-matrix">
           <h2 className="section-title">技能矩阵</h2>
-          <div className="skills-categories">
-            {skills.map((category) => (
-              <article key={category.category} className="skill-category glass">
-                <h3 className="category-name">{category.category}</h3>
-                <div className="skill-items">
-                  {category.items.map((item) => (
-                    <span key={item} className="skill-item">{item}</span>
+          <div className="skill-tree-board" aria-label="技能树">
+            <svg className="skill-link-layer" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
+              {skillTrees.map((tree, treeIndex) => {
+                const baseY = treeIndex === 0 ? 118 : 378;
+                return tree.branches.map((branch, branchIndex) => {
+                  const branchY = baseY - 92 + branchIndex * 46;
+                  const toolY = branchY + (branchIndex - 2) * 7;
+                  const pathA = `M 192 ${baseY} C 260 ${baseY}, 252 ${branchY}, 330 ${branchY}`;
+                  const pathB = `M 500 ${branchY} C 602 ${branchY}, 608 ${toolY}, 706 ${toolY}`;
+                  return (
+                    <g key={`${tree.id}-${branch.tag}`}>
+                      <path className={`skill-link-path skill-link-${tree.accent}`} d={pathA} />
+                      <path className={`skill-link-path skill-link-${tree.accent}`} d={pathB} />
+                      <path className={`skill-link-flow skill-link-${tree.accent}`} d={pathA} />
+                      <path className={`skill-link-flow skill-link-${tree.accent}`} d={pathB} />
+                    </g>
+                  );
+                });
+              })}
+            </svg>
+
+            {skillTrees.map((tree, treeIndex) => (
+              <article key={tree.id} className={`skill-tree-row skill-tree-row--${tree.accent}`}>
+                <div className="skill-root-card skill-tree-card">
+                  <span>{tree.eyebrow}</span>
+                  <h3>{tree.title}</h3>
+                </div>
+
+                <div className="skill-branch-column">
+                  {tree.branches.map((branch) => (
+                    <div key={branch.tag} className="skill-tree-node skill-branch-node">
+                      <span>{branch.tag}</span>
+                      <strong>{branch.label}</strong>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="skill-tool-column">
+                  {tree.branches.map((branch) => (
+                    <div key={branch.tag} className="skill-tree-node skill-tool-node">
+                      <span>{branch.label}</span>
+                      <div className="skill-tool-list">
+                        {branch.tools.map((tool) => (
+                          <em key={tool} className="skill-tool-chip">{tool}</em>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </article>
@@ -227,30 +359,21 @@ const About = () => {
         </section>
 
         <section className="ai-section">
-          <h2 className="section-title">AI工作流理解</h2>
-          <div className="ai-content glass">
-            <h3>核心矛盾：上下文地狱</h3>
-            <p>AI 的输出质量取决于上下文质量，但维护上下文的成本由人来承担。这是使用 AI 的核心痛点：重复交代、不可控性、上下文过载。</p>
-            <h3>解决方案：Skill机制</h3>
-            <p>Skill 的本质是预制上下文模块，在需要时自动切入。我构建设计脑暴 Skill 与直播业务 Skill，让 AI 更快理解创意角色、沟通节奏和业务框架。</p>
-            <h3>实践效果</h3>
-            <p>通过 Skill 机制，不需要每次都从头解释业务与协作方式，可以直接进入高质量设计讨论，让 AI 从搜索工具变成参与方案验证和设计决策的协作伙伴。</p>
+          <h2 className="section-title">关于 AI 的思考</h2>
+          <div className="ai-content glass ai-thinking-card">
+            <div className="ai-lead">
+              <span>AI Thinking</span>
+              <h3>AI 不是替代判断，而是放大解决问题的半径。</h3>
+            </div>
+            <div className="ai-statement">
+              <p>我并不把“会用 AI”当成核心能力，因为工具门槛会越来越低。真正重要的是能不能把问题讲清楚，把上下文组织好，把判断标准建立起来。</p>
+              <p>AI 对我来说不只是工作里的提效工具，它更像一种新的解决问题方式。工作里，我会用它做设计脑暴、脚本开发、素材处理和流程搭建；生活里，我也会用它辅助炒股分析、规划旅行、寻找美食、整理信息，甚至 coding 一些养花、养宠的小工具。</p>
+              <p>我越来越觉得，AI 真正有价值的地方，是能把模糊想法推成可执行方案。它能帮我把经验显性化，把重复流程工具化，把零散需求整理成上下文、规则和步骤。</p>
+              <p>但最后，人还是要负责提出问题、定义边界、判断结果。AI 不是替代判断，而是放大一个人的好奇心、执行力和解决问题的半径。</p>
+            </div>
           </div>
         </section>
 
-        <section className="education-section">
-          <h2 className="section-title">教育背景</h2>
-          <div className="education-card glass">
-            <div className="education-header">
-              <div>
-                <h3 className="school-name">山西传媒学院</h3>
-                <p className="major-name">动画专业（本科）</p>
-              </div>
-              <span className="period">2014.09 - 2018.07</span>
-            </div>
-            <p className="education-description">系统学习动画制作流程、角色设计、分镜构图、视觉叙事等专业知识。在校期间参与多个动画和漫画项目，为后续动效设计工作打下基础。</p>
-          </div>
-        </section>
       </div>
     </main>
   );
