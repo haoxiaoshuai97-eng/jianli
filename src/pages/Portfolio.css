@@ -216,13 +216,14 @@
   position: relative;
   z-index: 1;
   width: min(1080px, 92vw);
-  max-height: min(86vh, 860px);
+  max-height: min(90vh, 900px);
   display: grid;
   padding-top: 50px;
 }
 
 .modal-content {
   min-height: 0;
+  max-height: calc(min(90vh, 900px) - 50px);
 }
 
 .modal-close {
@@ -248,24 +249,39 @@
 
 .project-card.is-expanded {
   cursor: default;
-  max-height: 78vh;
-  display: grid;
-  grid-template-columns: 1fr;
-  overflow: auto;
+  max-height: calc(min(90vh, 900px) - 50px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   border-color: rgba(36, 209, 178, 0.45);
 }
 
 .project-card.is-expanded .project-media {
+  position: relative;
+  flex: 0 0 auto;
   height: auto;
   min-height: 0;
   aspect-ratio: 16 / 9;
+  max-height: min(58vh, 620px);
   border-right: 0;
   border-bottom: 1px solid var(--glass-border);
+  background: #000;
+  z-index: 2;
 }
 
 .project-card.is-expanded .project-info {
-  padding: 28px;
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 30vh;
+  overflow: auto;
+  padding: 24px 28px 28px;
   align-self: start;
+  width: 100%;
+  background:
+    linear-gradient(180deg, rgba(10, 17, 16, 0.96), rgba(10, 17, 16, 0.88)),
+    rgba(6, 9, 10, 0.92);
 }
 
 .project-card.is-expanded .project-title {

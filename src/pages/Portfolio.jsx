@@ -281,16 +281,17 @@ const Portfolio = () => {
               }}
             >
               <div className="project-media">
-                <video
-                  src={project.media.url}
-                  controls
-                  preload="none"
-                  loop
-                  muted
-                  playsInline
-                  className="media-video"
-                  poster={project.media.poster}
-                >
+                  <video
+                    src={project.media.url}
+                    controls
+                    preload="none"
+                    loop
+                    muted
+                    playsInline
+                    className="media-video"
+                    poster={project.media.poster}
+                    onClick={(event) => event.stopPropagation()}
+                  >
                   您的浏览器不支持视频播放
                 </video>
               </div>
