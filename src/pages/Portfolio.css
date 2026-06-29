@@ -52,12 +52,16 @@
 
 .category-filter button {
   min-height: 38px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
   color: rgba(255, 255, 255, 0.74);
-  background: transparent;
-  box-shadow: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.014)),
+    rgba(8, 14, 16, 0.48);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   font: inherit;
   font-size: 0.9rem;
   font-weight: 800;
@@ -68,10 +72,13 @@
 .category-filter button:hover,
 .category-filter button.active {
   color: rgba(255, 255, 255, 0.94);
-}
-
-.filter-glass-surface .glass-surface__content {
-  padding: 0 14px;
+  border-color: rgba(36, 209, 178, 0.28);
+  background:
+    linear-gradient(180deg, rgba(36, 209, 178, 0.12), rgba(255, 255, 255, 0.018)),
+    rgba(8, 18, 18, 0.58);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .projects-grid {
@@ -231,20 +238,31 @@
   top: 0;
   right: 0;
   min-height: 38px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
   color: rgba(255, 255, 255, 0.94);
-  background: transparent;
-  box-shadow: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.016)),
+    rgba(8, 14, 16, 0.6);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
   font-weight: 900;
   cursor: pointer;
   transform-origin: center;
   will-change: opacity, transform;
+  transition: border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
 }
 
-.modal-close .glass-surface__content {
-  padding: 0 14px;
+.modal-close:hover {
+  border-color: rgba(36, 209, 178, 0.3);
+  background:
+    linear-gradient(180deg, rgba(36, 209, 178, 0.13), rgba(255, 255, 255, 0.018)),
+    rgba(8, 18, 18, 0.68);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .project-card.is-expanded {

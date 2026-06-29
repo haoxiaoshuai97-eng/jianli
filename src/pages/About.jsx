@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import GlassSurface from '../components/GlassSurface';
 import './About.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -53,9 +52,9 @@ const skillTrees = [
     accent: 'blue',
     branches: [
       { tag: 'animation', label: '动画全流程', tools: ['After Effects', 'Spine', 'Unity', 'Lottie'] },
-      { tag: 'video', label: '视频制作与剪辑', tools: ['Premiere', '剪映', 'Audition'] },
-      { tag: 'design', label: '创意资源设计', tools: ['Photoshop', 'Illustrator', 'SAI'] },
-      { tag: '3d', label: '3D素材与动画', tools: ['Cinema 4D', 'Blender', 'Maya'] },
+      { tag: 'video', label: '视频制作与剪辑', tools: ['Premiere', '剪映'] },
+      { tag: 'design', label: '创意资源设计', tools: ['Photoshop', 'Illustrator'] },
+      { tag: '3d', label: '3D素材与动画', tools: ['Blender', 'Cinema 4D', 'Maya'] },
       { tag: 'template', label: '创意模板沉淀', tools: ['动效组件库', '视觉规范', '交付资产'] },
     ],
   },
@@ -67,7 +66,7 @@ const skillTrees = [
     branches: [
       { tag: 'context', label: '上下文工程', tools: ['需求拆解', '项目SOP', '判断标准'] },
       { tag: 'prompt', label: '提示词工程', tools: ['结构化提示词', '方案验证', '素材处理'] },
-      { tag: 'vibe', label: 'Vibe coding', tools: ['网页制作', 'Figma插件', '自动化脚本'] },
+      { tag: 'vibe', label: 'Vibe coding', tools: ['Codex', 'Claude Code', '网页制作', 'Figma插件', '自动化脚本'] },
       { tag: 'agent', label: 'Agent / Skills', tools: ['Skill构建', '系统级提示词', '个人工作流'] },
       { tag: 'prototype', label: '提效工具制作', tools: ['批量导出', '预览Demo', '设计脑暴协作'] },
     ],
@@ -168,14 +167,65 @@ const About = () => {
       onLeaveBack: (batch) => gsap.set(batch, { autoAlpha: 0, y: 28, overwrite: true }),
     });
 
+    const updateSkillLinks = () => {
+      const board = root.current?.querySelector('.skill-tree-board');
+      const svg = root.current?.querySelector('.skill-link-layer');
+      if (!board || !svg) return;
+
+      const svgRect = svg.getBoundingClientRect();
+      const scaleX = 1000 / svgRect.width;
+      const scaleY = 520 / svgRect.height;
+      const toPoint = (rect, side = 'left') => ({
+        x: ((side === 'right' ? rect.right : rect.left) - svgRect.left) * scaleX,
+        y: (rect.top + rect.height / 2 - svgRect.top) * scaleY,
+      });
+      const makePath = (start, end) => {
+        const distance = Math.max(42, Math.abs(end.x - start.x));
+        const c1 = start.x + distance * 0.48;
+        const c2 = end.x - distance * 0.48;
+        return `M ${start.x.toFixed(2)} ${start.y.toFixed(2)} C ${c1.toFixed(2)} ${start.y.toFixed(2)}, ${c2.toFixed(2)} ${end.y.toFixed(2)}, ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
+      };
+
+      root.current.querySelectorAll('.skill-tree-row').forEach((row, treeIndex) => {
+        const rootCard = row.querySelector('.skill-root-card');
+        if (!rootCard) return;
+
+        const rootPoint = toPoint(rootCard.getBoundingClientRect(), 'right');
+        row.querySelectorAll('.skill-branch-node').forEach((branchNode, branchIndex) => {
+          const toolNode = row.querySelector(`.skill-tool-node[data-branch-index="${branchIndex}"]`);
+          if (!toolNode) return;
+
+          const branchRect = branchNode.getBoundingClientRect();
+          const toolRect = toolNode.getBoundingClientRect();
+          const branchIn = toPoint(branchRect, 'left');
+          const branchOut = toPoint(branchRect, 'right');
+          const toolIn = toPoint(toolRect, 'left');
+          const rootPath = makePath(rootPoint, branchIn);
+          const toolPath = makePath(branchOut, toolIn);
+
+          root.current
+            .querySelectorAll(`.skill-link-segment[data-tree-index="${treeIndex}"][data-branch-index="${branchIndex}"][data-link-type="root"]`)
+            .forEach((path) => path.setAttribute('d', rootPath));
+          root.current
+            .querySelectorAll(`.skill-link-segment[data-tree-index="${treeIndex}"][data-branch-index="${branchIndex}"][data-link-type="tool"]`)
+            .forEach((path) => path.setAttribute('d', toolPath));
+        });
+      });
+    };
+
+    updateSkillLinks();
+    window.addEventListener('resize', updateSkillLinks);
+
     const linePaths = gsap.utils.toArray('.skill-link-path');
     linePaths.forEach((path) => {
       const length = path.getTotalLength();
       gsap.set(path, {
         strokeDasharray: length,
         strokeDashoffset: length,
+        autoAlpha: 0,
       });
     });
+    gsap.set('.skill-link-flow', { autoAlpha: 0, strokeDashoffset: 0 });
 
     const skillTimeline = gsap.timeline({
       scrollTrigger: {
@@ -183,6 +233,14 @@ const About = () => {
         start: 'top 76%',
         toggleActions: 'play none none reverse',
       },
+    });
+
+    const flowTween = gsap.to('.skill-link-flow', {
+      strokeDashoffset: -120,
+      duration: 2.8,
+      ease: 'none',
+      repeat: -1,
+      paused: true,
     });
 
     skillTimeline
@@ -194,49 +252,65 @@ const About = () => {
         autoAlpha: 1,
         y: 0,
         scale: 1,
-        duration: 0.72,
-        stagger: 0.1,
+        duration: 0.28,
+        stagger: 0.035,
         ease: 'power3.out',
       })
-      .to('.skill-link-path', {
+      .to('.skill-link-path[data-link-type="root"]', {
+        autoAlpha: 0.42,
         strokeDashoffset: 0,
-        duration: 1.05,
-        stagger: 0.045,
-        ease: 'power2.inOut',
-      }, '-=0.34')
-      .fromTo('.skill-tree-node', {
+        duration: 0.28,
+        stagger: 0.014,
+        ease: 'power2.out',
+      }, '-=0.06')
+      .fromTo('.skill-branch-node', {
         autoAlpha: 0,
-        x: -16,
+        x: -10,
       }, {
         autoAlpha: 1,
         x: 0,
-        duration: 0.44,
-        stagger: 0.045,
+        duration: 0.2,
+        stagger: 0.016,
         ease: 'power2.out',
-      }, '-=0.74')
+      }, '-=0.18')
+      .to('.skill-link-path[data-link-type="tool"]', {
+        autoAlpha: 0.42,
+        strokeDashoffset: 0,
+        duration: 0.28,
+        stagger: 0.014,
+        ease: 'power2.out',
+      }, '-=0.04')
+      .fromTo('.skill-tool-node', {
+        autoAlpha: 0,
+        x: -10,
+      }, {
+        autoAlpha: 1,
+        x: 0,
+        duration: 0.2,
+        stagger: 0.016,
+        ease: 'power2.out',
+      }, '-=0.18')
       .fromTo('.skill-tool-chip', {
         autoAlpha: 0,
-        y: 10,
+        y: 6,
       }, {
         autoAlpha: 1,
         y: 0,
-        duration: 0.36,
-        stagger: 0.018,
+        duration: 0.16,
+        stagger: 0.006,
         ease: 'power2.out',
-      }, '-=0.42');
+      }, '-=0.12')
+      .to('.skill-link-flow', {
+        autoAlpha: 0.78,
+        duration: 0.1,
+        ease: 'power1.out',
+        onStart: () => flowTween.play(0),
+        onReverseComplete: () => flowTween.pause(0),
+      });
 
-    gsap.to('.skill-link-flow', {
-      strokeDashoffset: -120,
-      duration: 2.8,
-      ease: 'none',
-      repeat: -1,
-      scrollTrigger: {
-        trigger: '.skill-tree-board',
-        start: 'top bottom',
-        end: 'bottom top',
-        toggleActions: 'play pause resume pause',
-      },
-    });
+    return () => {
+      window.removeEventListener('resize', updateSkillLinks);
+    };
   }, { scope: root });
 
   return (
@@ -266,12 +340,10 @@ const About = () => {
                   onClick={(event) => handleCopy(item, event)}
                   aria-label={`复制${item.label}：${item.value}`}
                 >
-                  <GlassSurface className="glass-button-surface copy-glass-surface" borderRadius={10} distortionScale={-135} backgroundOpacity={0.04}>
-                    <span className="magnetic-label">
-                      <span className="bubble-label">{item.label}</span>
-                      <span className="bubble-value">{item.value}</span>
-                    </span>
-                  </GlassSurface>
+                  <span className="magnetic-label">
+                    <span className="bubble-label">{item.label}</span>
+                    <span className="bubble-value">{item.value}</span>
+                  </span>
                   <span className="copy-pop">{copiedKey === item.key ? '已复制' : '复制'}</span>
                 </button>
               ))}
@@ -306,35 +378,42 @@ const About = () => {
           <h2 className="section-title">技能矩阵</h2>
           <div className="skill-tree-board" aria-label="技能树">
             <svg className="skill-link-layer" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
-              {skillTrees.map((tree, treeIndex) => {
-                const baseY = treeIndex === 0 ? 118 : 378;
-                return tree.branches.map((branch, branchIndex) => {
-                  const branchY = baseY - 92 + branchIndex * 46;
-                  const toolY = branchY + (branchIndex - 2) * 7;
-                  const pathA = `M 192 ${baseY} C 260 ${baseY}, 252 ${branchY}, 330 ${branchY}`;
-                  const pathB = `M 500 ${branchY} C 602 ${branchY}, 608 ${toolY}, 706 ${toolY}`;
-                  return (
-                    <g key={`${tree.id}-${branch.tag}`}>
-                      <path className={`skill-link-path skill-link-${tree.accent}`} d={pathA} />
-                      <path className={`skill-link-path skill-link-${tree.accent}`} d={pathB} />
-                      <path className={`skill-link-flow skill-link-${tree.accent}`} d={pathA} />
-                      <path className={`skill-link-flow skill-link-${tree.accent}`} d={pathB} />
-                    </g>
-                  );
-                });
-              })}
+              {skillTrees.map((tree, treeIndex) => (
+                tree.branches.map((branch, branchIndex) => (
+                  <g key={`${tree.id}-${branch.tag}`}>
+                    {['root', 'tool'].map((linkType) => (
+                      <path
+                        key={`path-${linkType}`}
+                        className={`skill-link-segment skill-link-path skill-link-${tree.accent}`}
+                        data-tree-index={treeIndex}
+                        data-branch-index={branchIndex}
+                        data-link-type={linkType}
+                      />
+                    ))}
+                    {['root', 'tool'].map((linkType) => (
+                      <path
+                        key={`flow-${linkType}`}
+                        className={`skill-link-segment skill-link-flow skill-link-${tree.accent}`}
+                        data-tree-index={treeIndex}
+                        data-branch-index={branchIndex}
+                        data-link-type={linkType}
+                      />
+                    ))}
+                  </g>
+                ))
+              ))}
             </svg>
 
             {skillTrees.map((tree, treeIndex) => (
-              <article key={tree.id} className={`skill-tree-row skill-tree-row--${tree.accent}`}>
+              <article key={tree.id} className={`skill-tree-row skill-tree-row--${tree.accent}`} data-tree-index={treeIndex}>
                 <div className="skill-root-card skill-tree-card">
                   <span>{tree.eyebrow}</span>
                   <h3>{tree.title}</h3>
                 </div>
 
                 <div className="skill-branch-column">
-                  {tree.branches.map((branch) => (
-                    <div key={branch.tag} className="skill-tree-node skill-branch-node">
+                  {tree.branches.map((branch, branchIndex) => (
+                    <div key={branch.tag} className="skill-tree-node skill-branch-node" data-branch-index={branchIndex}>
                       <span>{branch.tag}</span>
                       <strong>{branch.label}</strong>
                     </div>
@@ -342,8 +421,8 @@ const About = () => {
                 </div>
 
                 <div className="skill-tool-column">
-                  {tree.branches.map((branch) => (
-                    <div key={branch.tag} className="skill-tree-node skill-tool-node">
+                  {tree.branches.map((branch, branchIndex) => (
+                    <div key={branch.tag} className="skill-tree-node skill-tool-node" data-branch-index={branchIndex}>
                       <span>{branch.label}</span>
                       <div className="skill-tool-list">
                         {branch.tools.map((tool) => (

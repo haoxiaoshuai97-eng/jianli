@@ -3,7 +3,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flip } from 'gsap/Flip';
 import { useGSAP } from '@gsap/react';
-import GlassSurface from '../components/GlassSurface';
 import './Portfolio.css';
 
 gsap.registerPlugin(ScrollTrigger, Flip, useGSAP);
@@ -242,10 +241,9 @@ const Portfolio = () => {
   return (
     <main className="portfolio" ref={root}>
       <header className="portfolio-header">
-        <p className="portfolio-kicker">Selected Motion Works</p>
-        <h1>作品集</h1>
-        <p className="portfolio-subtitle">点击作品卡片，它会从网格中 FLIP 到中央详情层；再点击关闭即可回到原来的位置。</p>
-      </header>
+          <p className="portfolio-kicker">Selected Motion Works</p>
+          <h1>作品集</h1>
+        </header>
 
       <div className="category-filter" aria-label="作品分类筛选">
         {categories.map((category) => (
@@ -255,9 +253,7 @@ const Portfolio = () => {
             className={activeCategory === category ? 'active' : ''}
             onClick={() => handleFilter(category)}
           >
-            <GlassSurface className="glass-button-surface filter-glass-surface" borderRadius={999} distortionScale={-130} backgroundOpacity={0.035}>
               <span className="magnetic-label">{category}</span>
-            </GlassSurface>
           </button>
         ))}
       </div>
@@ -325,9 +321,7 @@ const Portfolio = () => {
         <button className="modal-overlay" ref={overlayRef} type="button" aria-label="关闭作品详情" onClick={closeProject} />
         <div className="modal-shell">
           <button className="modal-close" ref={closeButtonRef} type="button" onClick={closeProject}>
-            <GlassSurface className="glass-button-surface" borderRadius={999} distortionScale={-150} backgroundOpacity={0.045}>
-              <span className="magnetic-label">关闭</span>
-            </GlassSurface>
+            <span className="magnetic-label">关闭</span>
           </button>
           <div className="modal-content" ref={modalContentRef} />
         </div>
