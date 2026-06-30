@@ -49,7 +49,6 @@ const Navbar = () => {
             navLinksRef.current?.style.setProperty('--border-opacity', '0');
           }}
         >
-          <span className="nav-glow nav-glow-fill" aria-hidden="true" />
           <span className="nav-glow nav-glow-border" aria-hidden="true" />
           {navItems.map((item) => (
             <Link
