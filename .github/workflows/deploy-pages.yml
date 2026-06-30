@@ -36,6 +36,7 @@ jobs:
       - name: Build
         env:
           GITHUB_PAGES: true
+          GITHUB_PAGES_CUSTOM_DOMAIN: true
         run: npm run build
 
       - name: Add SPA fallback
