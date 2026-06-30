@@ -32,7 +32,7 @@ const Navbar = () => {
         </Link>
 
         <div
-          className="nav-links border-glow"
+          className="nav-links"
           ref={navLinksRef}
           onPointerMove={(event) => {
             const nav = navLinksRef.current;
@@ -49,6 +49,8 @@ const Navbar = () => {
             navLinksRef.current?.style.setProperty('--border-opacity', '0');
           }}
         >
+          <span className="nav-glow nav-glow-fill" aria-hidden="true" />
+          <span className="nav-glow nav-glow-border" aria-hidden="true" />
           {navItems.map((item) => (
             <Link
               key={item.path}
