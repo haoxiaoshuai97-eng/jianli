@@ -7,6 +7,8 @@ import './Home.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+
 const capabilityCards = [
   {
     title: '产品动效',
@@ -142,10 +144,10 @@ const Home = () => {
           >
             <span className="portrait-halo" aria-hidden="true" />
             <span className="portrait-face portrait-front">
-              <img src="/avatar.jpg" alt="郝晓帅头像" />
+              <img src={publicAsset('/avatar.jpg')} alt="郝晓帅头像" />
             </span>
             <span className="portrait-face portrait-back">
-              <img src="/wechat-qr.png" alt="微信二维码" />
+              <img src={publicAsset('/wechat-qr.png')} alt="微信二维码" />
             </span>
             <span className="flip-hint">点击翻转</span>
           </button>

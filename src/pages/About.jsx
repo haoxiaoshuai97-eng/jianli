@@ -6,6 +6,8 @@ import './About.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+
 const experiences = [
   {
     company: '字节跳动',
@@ -324,7 +326,7 @@ const About = () => {
       <div className="about-content">
         <section className="bio-section glass">
           <div className="bio-avatar">
-            <img src="/avatar.jpg" alt="郝晓帅" className="avatar-image" />
+            <img src={publicAsset('/avatar.jpg')} alt="郝晓帅" className="avatar-image" />
           </div>
           <div className="bio-text">
             <h2>个人简介</h2>

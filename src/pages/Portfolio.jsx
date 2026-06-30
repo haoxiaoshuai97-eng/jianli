@@ -7,6 +7,8 @@ import './Portfolio.css';
 
 gsap.registerPlugin(ScrollTrigger, Flip, useGSAP);
 
+const publicAsset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+
 const projects = [
   {
     id: 1,
@@ -17,7 +19,7 @@ const projects = [
     deliverables: ['活动创意动效', '视频物料', '直播间反馈'],
     media: {
       url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/douyin-activity.mp4',
-      poster: '/projects/douyin-activity.png',
+      poster: publicAsset('/projects/douyin-activity.png'),
     },
     tags: ['After Effects', 'Spine', '直播动效'],
   },
@@ -30,7 +32,7 @@ const projects = [
     deliverables: ['Figma插件', '参数预设', '预览Demo', 'WebP导出'],
     media: {
       url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/mic-wave-plugin-vibecodin.mp4',
-      poster: '/projects/mic-wave-plugin-vibecoding.png',
+      poster: publicAsset('/projects/mic-wave-plugin-vibecoding.png'),
     },
     tags: ['Vibe Coding', 'Figma插件', 'Codex', 'WebP导出'],
   },
@@ -43,7 +45,7 @@ const projects = [
     deliverables: ['功能动效', 'SAR标准', '组件交付'],
     media: {
       url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/douyin-function.mp4',
-      poster: '/projects/douyin-function.png',
+      poster: publicAsset('/projects/douyin-function.png'),
     },
     tags: ['Spine', 'SAR引擎', '标准制定'],
   },
@@ -56,7 +58,7 @@ const projects = [
     deliverables: ['图标动效', '角色动画', '活动页面'],
     media: {
       url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/game-motion.mp4',
-      poster: '/projects/game-motion.png',
+      poster: publicAsset('/projects/game-motion.png'),
     },
     tags: ['Spine', 'Unity粒子', 'SHADER'],
   },
@@ -69,7 +71,7 @@ const projects = [
     deliverables: ['角色动画', 'AE后期', '项目管理'],
     media: {
       url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/guagualong.mp4',
-      poster: '/projects/guagualong.png',
+      poster: publicAsset('/projects/guagualong.png'),
     },
     tags: ['AE', 'DUIK', 'PARTICULAR'],
   },
@@ -82,7 +84,7 @@ const projects = [
     deliverables: ['Maya建模', '三渲二', '角色动画'],
     media: {
       url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/Xiaoxiang.mp4',
-      poster: '/projects/Xiaoxiang.png',
+      poster: publicAsset('/projects/Xiaoxiang.png'),
     },
     tags: ['Maya', '三渲二', '角色动画'],
   },
@@ -95,7 +97,7 @@ const projects = [
     deliverables: ['Layout', '三维动画', '角色绑定'],
     media: {
       url: 'https://jianli-1308836110.cos.ap-beijing.myqcloud.com/xiaoqin.mp4',
-      poster: '/projects/xiaoqin.png',
+      poster: publicAsset('/projects/xiaoqin.png'),
     },
     tags: ['Maya', '三维动画', '角色绑定'],
   },
