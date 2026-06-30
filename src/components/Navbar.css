@@ -32,9 +32,6 @@
 }
 
 .nav-links {
-  --border-x: 50%;
-  --border-y: 50%;
-  --border-opacity: 0;
   display: flex;
   gap: 12px;
   justify-content: center;
@@ -82,43 +79,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.09);
   backdrop-filter: blur(18px) saturate(1.35);
   -webkit-backdrop-filter: blur(18px) saturate(1.35);
-}
-
-.border-glow::before,
-.border-glow::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.border-glow::before {
-  padding: 1px;
-  background:
-    radial-gradient(
-      130px circle at var(--border-x) var(--border-y),
-      rgba(255, 244, 176, calc(var(--border-opacity) * 0.98)),
-      rgba(255, 99, 197, calc(var(--border-opacity) * 0.58)) 34%,
-      rgba(105, 158, 255, calc(var(--border-opacity) * 0.5)) 58%,
-      transparent 74%
-    );
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  opacity: 1;
-  transition: background 0.18s ease, opacity 0.22s ease;
-  z-index: 2;
-}
-
-.border-glow::after {
-  display: none;
-  z-index: 0;
 }
 
 .nav-link {

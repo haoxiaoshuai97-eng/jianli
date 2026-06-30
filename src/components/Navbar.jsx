@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
-  const navLinksRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -31,24 +30,7 @@ const Navbar = () => {
           动效设计师
         </Link>
 
-        <div
-          className="nav-links border-glow"
-          ref={navLinksRef}
-          onPointerMove={(event) => {
-            const nav = navLinksRef.current;
-            if (!nav) return;
-
-            const rect = nav.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            nav.style.setProperty('--border-x', `${x}px`);
-            nav.style.setProperty('--border-y', `${y}px`);
-            nav.style.setProperty('--border-opacity', '1');
-          }}
-          onPointerLeave={() => {
-            navLinksRef.current?.style.setProperty('--border-opacity', '0');
-          }}
-        >
+        <div className="nav-links">
           {navItems.map((item) => (
             <Link
               key={item.path}
