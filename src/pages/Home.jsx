@@ -70,13 +70,6 @@ const Home = () => {
       stagger: 0.5,
     });
 
-    gsap.to('.portrait-halo', {
-      rotation: 360,
-      duration: 18,
-      ease: 'none',
-      repeat: -1,
-    });
-
     if (portraitRef.current) {
       gsap.set(portraitRef.current, {
         transformPerspective: 900,
@@ -142,7 +135,6 @@ const Home = () => {
             onMouseMove={handlePortraitMove}
             onMouseLeave={handlePortraitLeave}
           >
-            <span className="portrait-halo" aria-hidden="true" />
             <span className="portrait-face portrait-front">
               <img src={publicAsset('/avatar.jpg')} alt="郝晓帅头像" />
             </span>

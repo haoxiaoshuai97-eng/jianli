@@ -95,15 +95,6 @@
   --shine-y: 50%;
 }
 
-.portrait-halo {
-  position: absolute;
-  inset: -34%;
-  background: conic-gradient(from 90deg, transparent, rgba(36, 209, 178, 0.22), transparent, rgba(247, 201, 72, 0.16), transparent);
-  opacity: 0.12;
-  z-index: 0;
-  pointer-events: none;
-}
-
 .portrait-face {
   position: absolute;
   inset: 0;
@@ -224,12 +215,14 @@
 
 .home-title span {
   display: block;
-  max-width: 760px;
+  width: max-content;
+  max-width: none;
   margin-top: 22px;
   color: rgba(255, 255, 255, 0.84);
-  font-size: clamp(1.45rem, 2.6vw, 2.55rem);
+  font-size: clamp(1.35rem, 2.25vw, 2.35rem);
   line-height: 1.14;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .home-summary {
@@ -447,6 +440,7 @@
 
   .home-title span {
     font-size: 1.35rem;
+    white-space: normal;
   }
 
   .home-actions a {
