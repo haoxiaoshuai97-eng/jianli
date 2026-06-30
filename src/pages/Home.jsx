@@ -160,7 +160,7 @@ const Home = () => {
           <p className="home-kicker home-reveal">Motion Designer / Game Motion / Product Motion</p>
           <h1 className="home-title home-reveal">
             郝晓帅
-            <span>从角色动画、游戏动效到产品动效的复合型动效设计师</span>
+            <span>产品动效 / 游戏动效 / 动画师 / 动效设计师</span>
           </h1>
           <p className="home-summary home-reveal">
             <span>熟悉 AE、Spine、Unity、Maya、C4D、Blender、Lottie 工作流。</span>

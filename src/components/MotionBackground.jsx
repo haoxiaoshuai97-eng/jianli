@@ -13,13 +13,6 @@ const stems = Array.from({ length: 22 }, (_, index) => ({
   delay: (index % 9) * 0.16,
 }));
 
-const doodles = Array.from({ length: 10 }, (_, index) => ({
-  id: `doodle-${index}`,
-  kind: ['dash', 'dot', 'star', 'pill'][index % 4],
-  left: `${8 + ((index * 31) % 84)}%`,
-  top: `${16 + ((index * 37) % 68)}%`,
-}));
-
 const MotionBackground = () => {
   const root = useRef(null);
 
@@ -60,25 +53,6 @@ const MotionBackground = () => {
       }
     );
 
-    gsap.to('.bg-doodle', {
-      y: 'random(-14, 14, 1)',
-      x: 'random(-8, 8, 1)',
-      duration: 'random(2.6, 4.8, 0.1)',
-      ease: 'sine.inOut',
-      repeat: -1,
-      yoyo: true,
-      stagger: { each: 0.09, from: 'random' },
-    });
-
-    gsap.to('.bg-shape:not(.bg-dot)', {
-      rotation: 'random(-18, 18, 1)',
-      duration: 'random(2.8, 5.2, 0.1)',
-      ease: 'sine.inOut',
-      repeat: -1,
-      yoyo: true,
-      stagger: { each: 0.12, from: 'random' },
-    });
-
   }, { scope: root });
 
   return (
@@ -97,18 +71,6 @@ const MotionBackground = () => {
           >
             <span className="bg-stem-dot" />
             <span className="bg-stem-line" />
-          </span>
-        ))}
-        {doodles.map((doodle) => (
-          <span
-            key={doodle.id}
-            className={`bg-doodle bg-doodle-${doodle.kind}`}
-            style={{
-              left: doodle.left,
-              top: doodle.top,
-            }}
-          >
-            <span className={`bg-shape bg-${doodle.kind}`} />
           </span>
         ))}
       </div>
