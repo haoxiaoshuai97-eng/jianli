@@ -7,7 +7,7 @@ import './Home.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const publicAsset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+const cloudAsset = (path) => `https://assets.hxs.ink/tupian/${path.replace(/^\//, '')}`;
 
 const capabilityCards = [
   {
@@ -134,13 +134,13 @@ const Home = () => {
             onClick={() => setProfileFlipped((value) => !value)}
             onMouseMove={handlePortraitMove}
             onMouseLeave={handlePortraitLeave}
-          >
-            <span className="portrait-face portrait-front">
-              <img src={publicAsset('/avatar.jpg')} alt="郝晓帅头像" />
-            </span>
-            <span className="portrait-face portrait-back">
-              <img src={publicAsset('/wechat-qr.png')} alt="微信二维码" />
-            </span>
+            >
+              <span className="portrait-face portrait-front">
+                <img src={cloudAsset('/avatar.webp')} alt="郝晓帅头像" />
+              </span>
+              <span className="portrait-face portrait-back">
+                <img src={cloudAsset('/wechat-qr.png')} alt="微信二维码" />
+              </span>
             <span className="flip-hint">点击翻转</span>
           </button>
           <p className="profile-note">

@@ -6,7 +6,7 @@ import './About.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const publicAsset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+const cloudAsset = (path) => `https://assets.hxs.ink/tupian/${path.replace(/^\//, '')}`;
 
 const experiences = [
   {
@@ -326,7 +326,7 @@ const About = () => {
       <div className="about-content">
         <section className="bio-section glass">
           <div className="bio-avatar">
-            <img src={publicAsset('/avatar.jpg')} alt="郝晓帅" className="avatar-image" />
+            <img src={cloudAsset('/avatar.webp')} alt="郝晓帅" className="avatar-image" />
           </div>
           <div className="bio-text">
             <h2>个人简介</h2>
